@@ -1,0 +1,6 @@
+# Project exclude paths
+/heima-leadnews-common/target/
+/heima-leadnews-gateway/heima-leadnews-app-gateway/target/
+/heima-leadnews-model/target/
+/heima-leadnews-service/heima-leadnews-user/target/
+/heima-leadnews-utils/target/
