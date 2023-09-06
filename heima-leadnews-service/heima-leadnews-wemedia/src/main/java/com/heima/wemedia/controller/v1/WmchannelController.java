@@ -22,8 +22,7 @@ public class WmchannelController {
 
     @GetMapping("/channels")
     public ResponseResult findAll(){
-        ResponseResult all = wmChannelService.findAll();
-        return ResponseResult.okResult(all);
+        return wmChannelService.findAll();
     }
 }
 
