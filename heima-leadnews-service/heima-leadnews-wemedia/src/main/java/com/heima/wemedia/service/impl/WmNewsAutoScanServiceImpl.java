@@ -18,9 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,6 +41,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
      * @param id 自媒体文章id
      */
     @Override
+    @Async
     public void autoScanWmNews(Integer id) {
         //1.查询自媒体文章
         WmNews wmNews = wmNewsMapper.selectById(id);
@@ -70,7 +73,8 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
         }
     }
 
-    @Autowired
+
+    @Resource
     private IArticleClient articleClient;
 
     @Autowired
