@@ -16,6 +16,7 @@ import com.aliyuncs.profile.IClientProfile;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -25,14 +26,14 @@ import java.util.UUID;
  */
 public class ClientUploader {
 
-    private IClientProfile profile;
+    private final IClientProfile profile;
     private volatile UploadCredentials uploadCredentials;
-    private Map<String, String> headers;
-    private String prefix;
+    private final Map<String, String> headers;
+    private final String prefix;
 
     private boolean internal = false;
 
-    private Object lock = new Object();
+    private final Object lock = new Object();
 
     private ClientUploader(IClientProfile profile, String prefix, boolean internal) {
         this.profile = profile;
@@ -79,7 +80,7 @@ public class ClientUploader {
 
             ossClient = new OSSClient(getOssEndpoint(uploadCredentials), uploadCredentials.getAccessKeyId(), uploadCredentials.getAccessKeySecret(), uploadCredentials.getSecurityToken());
 
-            String object = uploadCredentials.getUploadFolder() + '/' + this.prefix + '/' + String.valueOf(filePath.hashCode());
+            String object = uploadCredentials.getUploadFolder() + '/' + this.prefix + '/' + filePath.hashCode();
             PutObjectResult ret = ossClient.putObject(uploadCredentials.getUploadBucket(), object, inputStream, meta);
             return "oss://" + uploadCredentials.getUploadBucket() + "/" + object;
         } catch (Exception e) {
@@ -122,7 +123,7 @@ public class ClientUploader {
 
             ossClient = new OSSClient(getOssEndpoint(uploadCredentials), uploadCredentials.getAccessKeyId(), uploadCredentials.getAccessKeySecret(), uploadCredentials.getSecurityToken());
 
-            String object = uploadCredentials.getUploadFolder() + '/' + this.prefix + '/' + UUID.randomUUID().toString();
+            String object = uploadCredentials.getUploadFolder() + '/' + this.prefix + '/' + UUID.randomUUID();
             PutObjectResult ret = ossClient.putObject(uploadCredentials.getUploadBucket(), object, new ByteArrayInputStream(bytes));
             return "oss://" + uploadCredentials.getUploadBucket() + "/" + object;
         } catch (Exception e) {
@@ -166,14 +167,14 @@ public class ClientUploader {
             uploadCredentialsRequest.putHeaderParameter(kv.getKey(), kv.getValue());
         }
 
-        uploadCredentialsRequest.setHttpContent(new JSONObject().toJSONString().getBytes("UTF-8"), "UTF-8", FormatType.JSON);
+        uploadCredentialsRequest.setHttpContent(new JSONObject().toJSONString().getBytes(StandardCharsets.UTF_8), "UTF-8", FormatType.JSON);
 
         IAcsClient client = null;
         try{
             client = new DefaultAcsClient(profile);
             HttpResponse httpResponse =  client.doAction(uploadCredentialsRequest);
             if (httpResponse.isSuccess()) {
-                JSONObject scrResponse = JSON.parseObject(new String(httpResponse.getHttpContent(), "UTF-8"));
+                JSONObject scrResponse = JSON.parseObject(new String(httpResponse.getHttpContent(), StandardCharsets.UTF_8));
                 if (200 == scrResponse.getInteger("code")) {
                     JSONObject data = scrResponse.getJSONObject("data");
                     return new UploadCredentials(data.getString("accessKeyId"), data.getString("accessKeySecret"),

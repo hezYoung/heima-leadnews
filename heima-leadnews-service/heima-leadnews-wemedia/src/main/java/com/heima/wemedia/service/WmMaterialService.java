@@ -15,11 +15,11 @@ import com.heima.wemedia.mapper.WmMaterialMapper;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface WmMaterialService extends IService<WmMaterial> {
-    public ResponseResult uploadPicture(MultipartFile multipartFile);
+    ResponseResult uploadPicture(MultipartFile multipartFile);
     /**
      * 素材列表查询
      * @param dto
      * @return
      */
-    public ResponseResult findList( WmMaterialDto dto);
+    ResponseResult findList( WmMaterialDto dto);
 }

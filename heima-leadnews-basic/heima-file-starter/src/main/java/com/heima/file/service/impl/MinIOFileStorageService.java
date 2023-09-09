@@ -67,11 +67,10 @@ public class MinIOFileStorageService implements FileStorageService {
                     .bucket(minIOConfigProperties.getBucket()).stream(inputStream,inputStream.available(),-1)
                     .build();
             minioClient.putObject(putObjectArgs);
-            StringBuilder urlPath = new StringBuilder(minIOConfigProperties.getReadPath());
-            urlPath.append(separator+minIOConfigProperties.getBucket());
-            urlPath.append(separator);
-            urlPath.append(filePath);
-            return urlPath.toString();
+            String urlPath = minIOConfigProperties.getReadPath() + separator + minIOConfigProperties.getBucket() +
+                    separator +
+                    filePath;
+            return urlPath;
         }catch (Exception ex){
             log.error("minio put file error.",ex);
             throw new RuntimeException("上传文件失败");
@@ -95,11 +94,10 @@ public class MinIOFileStorageService implements FileStorageService {
                     .bucket(minIOConfigProperties.getBucket()).stream(inputStream,inputStream.available(),-1)
                     .build();
             minioClient.putObject(putObjectArgs);
-            StringBuilder urlPath = new StringBuilder(minIOConfigProperties.getReadPath());
-            urlPath.append(separator+minIOConfigProperties.getBucket());
-            urlPath.append(separator);
-            urlPath.append(filePath);
-            return urlPath.toString();
+            String urlPath = minIOConfigProperties.getReadPath() + separator + minIOConfigProperties.getBucket() +
+                    separator +
+                    filePath;
+            return urlPath;
         }catch (Exception ex){
             log.error("minio put file error.",ex);
             ex.printStackTrace();

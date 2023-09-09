@@ -4,7 +4,7 @@ import com.heima.model.common.enums.AppHttpCodeEnum;
 
 public class CustomException extends RuntimeException {
 
-    private AppHttpCodeEnum appHttpCodeEnum;
+    private final AppHttpCodeEnum appHttpCodeEnum;
 
     public CustomException(AppHttpCodeEnum appHttpCodeEnum){
         this.appHttpCodeEnum = appHttpCodeEnum;

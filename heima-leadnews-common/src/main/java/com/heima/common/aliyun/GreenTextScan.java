@@ -18,6 +18,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Getter
@@ -54,10 +55,10 @@ public class GreenTextScan {
         /**
          * 检测场景，文本垃圾检测传递：antispam
          **/
-        data.put("scenes", Arrays.asList("antispam"));
+        data.put("scenes", Collections.singletonList("antispam"));
         data.put("tasks", tasks);
         System.out.println(JSON.toJSONString(data, true));
-        textScanRequest.setHttpContent(data.toJSONString().getBytes("UTF-8"), "UTF-8", FormatType.JSON);
+        textScanRequest.setHttpContent(data.toJSONString().getBytes(StandardCharsets.UTF_8), "UTF-8", FormatType.JSON);
         // 请务必设置超时时间
         textScanRequest.setConnectTimeout(3000);
         textScanRequest.setReadTimeout(6000);
@@ -66,7 +67,7 @@ public class GreenTextScan {
         try {
             HttpResponse httpResponse = client.doAction(textScanRequest);
             if (httpResponse.isSuccess()) {
-                JSONObject scrResponse = JSON.parseObject(new String(httpResponse.getHttpContent(), "UTF-8"));
+                JSONObject scrResponse = JSON.parseObject(new String(httpResponse.getHttpContent(), StandardCharsets.UTF_8));
                 System.out.println(JSON.toJSONString(scrResponse, true));
                 if (200 == scrResponse.getInteger("code")) {
                     JSONArray taskResults = scrResponse.getJSONArray("data");

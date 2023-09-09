@@ -18,7 +18,7 @@ public class CustomLibUploader {
                              String filepath) throws Exception {
         LinkedHashMap<String, String> textMap = new LinkedHashMap<String, String>();
         // key
-        String objectName = uploadFolder + "/imglib_" + UUID.randomUUID().toString() + ".jpg";
+        String objectName = uploadFolder + "/imglib_" + UUID.randomUUID() + ".jpg";
         textMap.put("key", objectName);
         // Content-Disposition
         textMap.put("Content-Disposition", "attachment;filename="+filepath);
@@ -105,15 +105,14 @@ public class CustomLibUploader {
                         contentType = "application/octet-stream";
                     }
 
-                    StringBuffer strBuf = new StringBuffer();
-                    strBuf.append("\r\n").append("--").append(BOUNDARY).append(
-                            "\r\n");
-                    strBuf.append("Content-Disposition: form-data; name=\""
+                    String strBuf = "\r\n" + "--" + BOUNDARY +
+                            "\r\n" +
+                            "Content-Disposition: form-data; name=\""
                             + inputName + "\"; filename=\"" + filename
-                            + "\"\r\n");
-                    strBuf.append("Content-Type: " + contentType + "\r\n\r\n");
+                            + "\"\r\n" +
+                            "Content-Type: " + contentType + "\r\n\r\n";
 
-                    out.write(strBuf.toString().getBytes());
+                    out.write(strBuf.getBytes());
 
                     DataInputStream in = new DataInputStream(new FileInputStream(file));
                     int bytes = 0;
@@ -123,8 +122,7 @@ public class CustomLibUploader {
                     }
                     in.close();
                 }
-                StringBuffer strBuf = new StringBuffer();
-                out.write(strBuf.toString().getBytes());
+                out.write("".getBytes());
             }
 
             byte[] endData = ("\r\n--" + BOUNDARY + "--\r\n").getBytes();

@@ -25,7 +25,7 @@ public enum UrlSignUtils {
                     sb.append(entry.getKey()).append('=').append(entry.getValue());
             }
         }
-        logger.info("Before Sign : {}", sb.toString());
+        logger.info("Before Sign : {}", sb);
         return DigestUtils.md5Hex(sb.toString()).toUpperCase();
     }
 

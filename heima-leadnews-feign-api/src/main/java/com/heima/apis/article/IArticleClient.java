@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface IArticleClient {
 
     @PostMapping("/api/v1/article/save")
-    public ResponseResult saveArticle(@RequestBody ArticleDto dto);
+    ResponseResult saveArticle(@RequestBody ArticleDto dto);
 }

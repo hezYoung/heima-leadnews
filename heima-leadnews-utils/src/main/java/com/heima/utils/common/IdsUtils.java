@@ -78,7 +78,7 @@ public class IdsUtils {
     }
 
     public static void main(String[] args) throws Exception{
-        System.out.println("========:"+encryptNumber(2l));
+        System.out.println("========:"+encryptNumber(2L));
     }
 
 }

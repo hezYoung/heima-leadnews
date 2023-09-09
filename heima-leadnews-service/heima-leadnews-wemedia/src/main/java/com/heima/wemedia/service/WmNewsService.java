@@ -19,11 +19,11 @@ public interface WmNewsService extends IService<WmNews> {
      * @param dto
      * @return
      */
-    public ResponseResult findAll(WmNewsPageReqDto dto);
+    ResponseResult findAll(WmNewsPageReqDto dto);
     /**
      *  发布文章或保存草稿
      * @param dto
      * @return
      */
-    public ResponseResult submitNews(WmNewsDto dto);
+    ResponseResult submitNews(WmNewsDto dto);
 }

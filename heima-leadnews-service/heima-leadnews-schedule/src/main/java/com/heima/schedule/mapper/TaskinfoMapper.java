@@ -19,5 +19,5 @@ import java.util.List;
 @Mapper
 public interface TaskinfoMapper extends BaseMapper<Taskinfo> {
 
-    public List<Taskinfo> queryFutureTime(@Param("taskType")int type, @Param("priority")int priority, @Param("future")Date future);
+    List<Taskinfo> queryFutureTime(@Param("taskType")int type, @Param("priority")int priority, @Param("future")Date future);
 }

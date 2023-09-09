@@ -17,7 +17,7 @@ public class MD5Utils {
             //使用指定的字节数组更新摘要
             md.update(str.getBytes());
             //进行哈希计算并返回一个字节数组
-            byte mdBytes[] = md.digest();
+            byte[] mdBytes = md.digest();
             String hash = "";
             //循环字节数组
             for (int i = 0; i < mdBytes.length; i++) {
