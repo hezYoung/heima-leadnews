@@ -17,7 +17,6 @@
         <module>heima-leadnews-gateway</module>
         <module>heima-leadnews-test</module>
         <module>heima-leadnews-basic</module>
-        <module>heima-leadnews-schedule</module>
     </modules>
 
     <!-- 继承Spring boot工程 -->
