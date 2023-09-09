@@ -15,6 +15,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: io.protostuff:protostuff-core:1.6.0" level="project" />
+    <orderEntry type="library" name="Maven: io.protostuff:protostuff-api:1.6.0" level="project" />
+    <orderEntry type="library" name="Maven: io.protostuff:protostuff-runtime:1.6.0" level="project" />
+    <orderEntry type="library" name="Maven: io.protostuff:protostuff-collectionschema:1.6.0" level="project" />
     <orderEntry type="module" module-name="heima-leadnews-model" />
     <orderEntry type="library" name="Maven: com.mysql:mysql-connector-j:8.0.33" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.13.0" level="project" />
