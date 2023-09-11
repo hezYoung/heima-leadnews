@@ -283,15 +283,16 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper,WmNews> implemen
         if(dto.getEnable() != null && dto.getEnable() > -1 && dto.getEnable() < 2){
             update(Wrappers.<WmNews>lambdaUpdate().set(WmNews::getEnable,dto.getEnable())
                     .eq(WmNews::getId,wmNews.getId()));
+            //发送消息，通知article端修改文章配置
+            if(wmNews.getArticleId() != null){
+                Map<String,Object> map = new HashMap<>();
+                map.put("articleId",wmNews.getArticleId());
+                map.put("enable",dto.getEnable());
+                kafkaTemplate.send(WmNewsMessageConstants.WM_NEWS_UP_OR_DOWN_TOPIC,JSON.toJSONString(map));
+            }
         }
 
-        //发送消息，通知article端修改文章配置
-        if(wmNews.getArticleId() != null){
-            Map<String,Object> map = new HashMap<>();
-            map.put("articleId",wmNews.getArticleId());
-            map.put("enable",dto.getEnable());
-            kafkaTemplate.send(WmNewsMessageConstants.WM_NEWS_UP_OR_DOWN_TOPIC,JSON.toJSONString(map));
-        }
+
         return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
     }
 
