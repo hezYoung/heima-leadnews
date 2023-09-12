@@ -7,6 +7,7 @@
 package com.heima.search.service;
 
 import com.heima.model.common.dtos.ResponseResult;
+import com.heima.model.search.dtos.HistorySearchDto;
 import com.heima.search.pojos.ApUserSearch;
 
 import java.util.List;
@@ -23,4 +24,10 @@ public interface ApUserSearchService {
      @return
      */
     List<ApUserSearch> findUserSearch();
+    /**
+     删除搜索历史
+     @param historySearchDto
+     @return
+     */
+    ResponseResult delUserSearch(HistorySearchDto historySearchDto);
 }
