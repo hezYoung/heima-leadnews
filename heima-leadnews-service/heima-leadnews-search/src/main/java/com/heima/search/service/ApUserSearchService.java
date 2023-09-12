@@ -7,6 +7,9 @@
 package com.heima.search.service;
 
 import com.heima.model.common.dtos.ResponseResult;
+import com.heima.search.pojos.ApUserSearch;
+
+import java.util.List;
 
 public interface ApUserSearchService {
     /**
@@ -19,5 +22,5 @@ public interface ApUserSearchService {
      查询搜索历史
      @return
      */
-    ResponseResult findUserSearch();
+    List<ApUserSearch> findUserSearch();
 }

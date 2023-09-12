@@ -52,7 +52,7 @@ public class ArticleSearchServiceImpl implements ApArticleSearchService {
 
         //异步调用 保存搜索记录
      //   if(user != null && userSearchDto.getFromIndex() == 0){
-            apUserSearchService.insert(userSearchDto.getSearchWords(), 666);
+            apUserSearchService.insert(userSearchDto.getSearchWords(), 4);
       //  }
         //设置es的查询条件
         SearchRequest appInfoArticle = new SearchRequest("app_info_article");
