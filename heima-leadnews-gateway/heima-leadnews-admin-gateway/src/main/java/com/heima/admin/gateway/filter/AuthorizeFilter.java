@@ -1,11 +1,10 @@
-package com.heima.app.gateway.filter;
+package com.heima.admin.gateway.filter;
 
 
-import com.heima.app.gateway.util.AppJwtUtil;
+import com.heima.admin.gateway.util.AppJwtUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -31,7 +30,6 @@ public class AuthorizeFilter implements Ordered, GlobalFilter {
             return chain.filter(exchange);
         }
 
-
         //3.获取token
         String token = request.getHeaders().getFirst("token");
 
@@ -50,10 +48,16 @@ public class AuthorizeFilter implements Ordered, GlobalFilter {
                 response.setStatusCode(HttpStatus.UNAUTHORIZED);
                 return response.setComplete();
             }
-        }catch (Exception e){
+            //获得token解析后中的用户信息
+            Object userId = claimsBody.get("id");
+            //在header中添加新的信息
+            ServerHttpRequest serverHttpRequest = request.mutate().headers(httpHeaders -> {
+                httpHeaders.add("userId", userId + "");
+            }).build();
+            //重置header
+            exchange.mutate().request(serverHttpRequest).build();
+        } catch (Exception e) {
             e.printStackTrace();
-            response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            return response.setComplete();
         }
 
         //6.放行
