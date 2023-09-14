@@ -24,6 +24,12 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-test</artifactId>
     </dependency>
+    <!--xxl-job-->
+    <dependency>
+        <groupId>com.xuxueli</groupId>
+        <artifactId>xxl-job-core</artifactId>
+        <version>2.3.0</version>
+    </dependency>
     <!-- lombok -->
     <dependency>
         <groupId>org.projectlombok</groupId>
