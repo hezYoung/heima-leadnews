@@ -12,9 +12,11 @@ import com.heima.model.article.pojo.ApArticle;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
 public interface ApArticleMapper extends BaseMapper<ApArticle> {
     List<ApArticle> loadArticle(@Param("dto") ArticleHomeDto dto, @Param("type") Short type);
+    public List<ApArticle> findArticleListByLast5days(@Param("dayParam") Date dayParam);
 }
