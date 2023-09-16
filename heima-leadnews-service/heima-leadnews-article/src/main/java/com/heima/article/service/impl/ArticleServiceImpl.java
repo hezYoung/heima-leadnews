@@ -12,6 +12,7 @@ import com.heima.article.mapper.ApArticleConfigMapper;
 import com.heima.article.mapper.ApArticleContentMapper;
 import com.heima.article.mapper.ApArticleMapper;
 import com.heima.article.service.ApArticleService;
+import com.heima.article.service.ArticleFreemarkerService;
 import com.heima.model.article.dto.ArticleDto;
 import com.heima.model.article.dto.ArticleHomeDto;
 import com.heima.model.article.pojo.ApArticle;
@@ -37,7 +38,8 @@ public class ArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle> 
     private ApArticleMapper apArticleMapper;
     @Autowired
     private ApArticleConfigMapper apArticleConfigMapper;
-
+    @Autowired
+    private ArticleFreemarkerService articleFreemarkerService;
     @Autowired
     private ApArticleContentMapper apArticleContentMapper;
     // 单页最大加载的数字
@@ -112,7 +114,8 @@ public class ArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle> 
             apArticleContent.setContent(dto.getContent());
             apArticleContentMapper.updateById(apArticleContent);
         }
-
+        //异步调用 生成静态文件上传到minio中
+       // articleFreemarkerService.buildArticleToMinIO(apArticle,dto.getContent());
 
         //3.结果返回  文章的id
         return ResponseResult.okResult(apArticle.getId());
